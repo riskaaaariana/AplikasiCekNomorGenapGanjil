@@ -34,9 +34,19 @@ public class AplikasiCekGenapGanjil extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cek Ganjil Genap", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 14))); // NOI18N
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
+        angka.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                angkaActionPerformed(evt);
+            }
+        });
         angka.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 angkaKeyTyped(evt);
+            }
+        });
+        angka.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                angkaFocusGained(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -57,7 +67,7 @@ public class AplikasiCekGenapGanjil extends javax.swing.JFrame {
         output.setText("Hasilnya akan keluar disini !");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.insets = new java.awt.Insets(16, 0, 0, 0);
         jPanel1.add(output, gridBagConstraints);
@@ -69,8 +79,9 @@ public class AplikasiCekGenapGanjil extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         jPanel1.add(hasil, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -107,25 +118,53 @@ public class AplikasiCekGenapGanjil extends javax.swing.JFrame {
         
         // Validasi input tidak boleh kosong
         if (inputText.isEmpty()) {
-            output.setText("Silakan masukkan angka!");
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Silakan masukkan angka!",
+                "Peringatan",
+                javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
         }
         
         try {
             // Konversi input string ke integer
             int number = Integer.parseInt(inputText);
+            String hasilAnalisis = number + " adalah bilangan " +
+                (number % 2 == 0 ? "GENAP" : "GANJIL") +
+                "\n dan bilangan " +
+                (isPrima(number) ? "PRIMA" : "BUKAN PRIMA");
             
-            // Cek apakah bilangan genap atau ganjil
-            if (number % 2 == 0) {
-                output.setText(number + " adalah bilangan GENAP");
-            } else {
-                output.setText(number + " adalah bilangan GANJIL");
-            }
+            // Tampilkan hasil dengan JOptionPane
+            javax.swing.JOptionPane.showMessageDialog(this,
+                hasilAnalisis,
+                "Hasil Analisis",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                
+            output.setText(hasilAnalisis);
+            
         } catch (NumberFormatException e) {
             // Menangani error jika input tidak valid
-            output.setText("Input tidak valid! Masukkan angka yang benar.");
+            javax.swing.JOptionPane.showMessageDialog(this,
+                "Input tidak valid! Masukkan angka yang benar.",
+                "Error",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_hasilActionPerformed
+
+    private void angkaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_angkaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_angkaActionPerformed
+
+    private void angkaFocusGained(java.awt.event.FocusEvent evt) {
+        angka.setText("");
+    }
+
+    private boolean isPrima(int number) {
+        if (number <= 1) return false;
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) return false;
+        }
+        return true;
+    }
 
     /**
      * @param args the command line arguments
