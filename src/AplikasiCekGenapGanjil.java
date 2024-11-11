@@ -3,10 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 
-/**
- *
- * @author Saputra
- */
+
 public class AplikasiCekGenapGanjil extends javax.swing.JFrame {
 
     /**
@@ -24,22 +21,111 @@ public class AplikasiCekGenapGanjil extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        jPanel1 = new javax.swing.JPanel();
+        angka = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        output = new javax.swing.JLabel();
+        hasil = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cek Ganjil Genap", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 14))); // NOI18N
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        angka.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                angkaKeyTyped(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 50;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        jPanel1.add(angka, gridBagConstraints);
+
+        jLabel1.setText("Masukan Angka");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        jPanel1.add(jLabel1, gridBagConstraints);
+
+        output.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        output.setText("Hasilnya akan keluar disini !");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(16, 0, 0, 0);
+        jPanel1.add(output, gridBagConstraints);
+
+        hasil.setText("Hitung");
+        hasil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hasilActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        jPanel1.add(hasil, gridBagConstraints);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void angkaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_angkaKeyTyped
+        // Membatasi input hanya untuk angka
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume(); // Mengabaikan karakter yang bukan angka
+        }
+    }//GEN-LAST:event_angkaKeyTyped
+
+    private void hasilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hasilActionPerformed
+        // Mengambil input dari text field
+        String inputText = angka.getText().trim();
+        
+        // Validasi input tidak boleh kosong
+        if (inputText.isEmpty()) {
+            output.setText("Silakan masukkan angka!");
+            return;
+        }
+        
+        try {
+            // Konversi input string ke integer
+            int number = Integer.parseInt(inputText);
+            
+            // Cek apakah bilangan genap atau ganjil
+            if (number % 2 == 0) {
+                output.setText(number + " adalah bilangan GENAP");
+            } else {
+                output.setText(number + " adalah bilangan GANJIL");
+            }
+        } catch (NumberFormatException e) {
+            // Menangani error jika input tidak valid
+            output.setText("Input tidak valid! Masukkan angka yang benar.");
+        }
+    }//GEN-LAST:event_hasilActionPerformed
 
     /**
      * @param args the command line arguments
@@ -77,5 +163,10 @@ public class AplikasiCekGenapGanjil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField angka;
+    private javax.swing.JButton hasil;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel output;
     // End of variables declaration//GEN-END:variables
 }
